@@ -14,7 +14,7 @@ LeafletWidget.methods.addGlifyPolylines = function(data, cols, popup, opacity, g
         if (popup === true) {
           pop = function (e, feature) {
             var popUp = '<pre>'+JSON.stringify(feature.properties,null,' ').replace(/[\{\}"]/g,'')+'</pre>';
-            if (map.hasLayer(lineslayer.glLayer)) {
+            if (map.layerManager.getVisibleGroups().includes(this.className)) {
               L.popup({ maxWidth: 2000 })
                 .setLatLng(e.latlng)
                 .setContent(popUp)
@@ -23,7 +23,7 @@ LeafletWidget.methods.addGlifyPolylines = function(data, cols, popup, opacity, g
           };
         } else {
           pop = function (e, feature) {
-            if (map.hasLayer(lineslayer.glLayer)) {
+            if (map.layerManager.getVisibleGroups().includes(this.className)) {
               L.popup({ maxWidth: 2000 })
                 .setLatLng(e.latlng)
                 .setContent(feature.properties[[popup]].toString())
